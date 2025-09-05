@@ -1,26 +1,190 @@
 @import "tailwindcss";
+@import "tw-animate-css";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
+@custom-variant dark (&:is(.dark *));
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+* {
+  @apply border border-gray-300 outline-none;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  @apply bg-white dark:bg-gray-900 text-gray-900 dark:text-white;
+}
+
+p,
+li {
+  @apply text-gray-200;
+}
+
+h2 {
+  @apply text-3xl font-semibold;
+}
+
+h3 {
+  @apply text-2xl font-semibold;
+}
+
+ul {
+  @apply list-disc list-inside;
+}
+
+/* -----------------------------
+   Buttons
+----------------------------- */
+.btn-call {
+  @apply inline-flex px-7 py-3 font-bold text-sm leading-5 text-white transition-colors duration-150 bg-green-500 border border-transparent rounded-full shadow-sm focus:outline-none focus:shadow-2xl active:bg-green-600 hover:bg-green-600 min-w-[7rem] items-center justify-center overflow-visible;
+}
+
+.btn-disconnect {
+  @apply inline-flex px-7 py-3 text-sm font-bold leading-5 text-white transition-colors duration-150 bg-red-500 border border-transparent rounded-full shadow-sm focus:outline-none focus:shadow-2xl active:bg-red-600 hover:bg-red-600 min-w-[7rem];
+}
+
+.btn-primary {
+  @apply w-fit bg-blue-200 text-gray-900 hover:bg-blue-200/80 rounded-full font-bold px-5 min-h-[2.5rem] cursor-pointer;
+}
+
+.btn-secondary {
+  @apply w-fit bg-gray-800 text-blue-200 hover:bg-gray-800/80 rounded-full font-bold px-5 min-h-[2.5rem] cursor-pointer;
+}
+
+.btn-upload {
+  @apply flex min-h-[3.5rem] w-full items-center justify-center gap-1.5 rounded-md bg-gray-800 px-5 border border-gray-400 overflow-hidden;
+}
+
+/* -----------------------------
+   Cards
+----------------------------- */
+.card-border {
+  @apply bg-gradient-to-b from-gray-400/100 to-gray-400/20 p-0.5 rounded-2xl w-fit;
+}
+
+.card {
+  @apply bg-gradient-to-b from-gray-800 to-gray-900 rounded-2xl min-h-full;
+}
+
+/* -----------------------------
+   Forms
+----------------------------- */
+.form {
+  @apply w-full;
+}
+
+.form .label {
+  @apply text-gray-200 font-normal;
+}
+
+.form .input {
+  @apply bg-gray-800 rounded-full min-h-[3rem] px-5 placeholder-gray-200;
+}
+
+.form .btn {
+  @apply w-full bg-blue-200 text-gray-900 hover:bg-blue-200/80 rounded-full min-h-[2.5rem] font-bold px-5 cursor-pointer;
+}
+
+/* -----------------------------
+   Call view
+----------------------------- */
+.call-view {
+  @apply flex flex-col sm:flex-row gap-10 items-center justify-between w-full;
+}
+
+.call-view h3 {
+  @apply text-center text-blue-200 mt-5;
+}
+
+.card-interviewer {
+  @apply flex flex-col items-center justify-center gap-2 p-7 h-[400px] bg-gradient-to-b from-[#171532] to-[#08090D] rounded-lg border-2 border-blue-200/50 flex-1 sm:basis-1/2 w-full;
+}
+
+.avatar {
+  @apply relative z-10 flex items-center justify-center bg-gradient-to-l from-white to-blue-200 rounded-full w-[120px] h-[120px];
+}
+
+.animate-speak {
+  @apply absolute inline-flex w-[85%] h-[85%] rounded-full bg-blue-200 opacity-75 animate-ping;
+}
+
+.card-content {
+  @apply flex flex-col gap-2 justify-center items-center p-7 bg-gradient-to-b from-gray-800 to-gray-900 rounded-2xl min-h-full;
+}
+
+/* -----------------------------
+   Transcripts
+----------------------------- */
+.transcript-border {
+  @apply bg-gradient-to-b from-gray-400/100 to-gray-400/20 p-0.5 rounded-2xl w-full;
+}
+
+.transcript {
+  @apply bg-gradient-to-b from-gray-800 to-gray-900 rounded-2xl min-h-[3rem] px-5 py-3 flex items-center justify-center;
+}
+
+.transcript p {
+  @apply text-lg text-center text-white;
+}
+
+/* -----------------------------
+   Sections
+----------------------------- */
+.section-feedback {
+  @apply flex flex-col gap-8 max-w-5xl mx-auto px-4 text-lg leading-7;
+}
+
+.section-feedback .buttons {
+  @apply flex w-full justify-evenly gap-4 flex-col sm:flex-row sm:items-center;
+}
+
+.auth-layout {
+  @apply flex items-center justify-center mx-auto max-w-7xl min-h-screen px-4 py-8;
+}
+
+.root-layout {
+  @apply flex flex-col gap-12 mx-auto my-12 px-16 max-w-7xl;
+}
+
+.card-cta {
+  @apply flex flex-row items-center justify-between px-16 py-6 rounded-3xl bg-gradient-to-b from-[#171532] to-[#08090D];
+}
+
+.interviews-section {
+  @apply flex flex-wrap gap-4 w-full items-stretch;
+}
+
+.interview-text {
+  @apply text-lg text-center text-white;
+}
+
+.progress {
+  @apply h-1.5 bg-blue-200 rounded-full flex items-center justify-center;
+}
+
+.tech-tooltip {
+  @apply absolute bottom-full mb-1 hidden group-hover:flex px-2 py-1 text-xs text-white bg-gray-700 rounded-md shadow-md;
+}
+
+.card-interview {
+  @apply bg-gradient-to-b from-gray-800 to-gray-900 rounded-2xl min-h-full flex flex-col p-6 relative overflow-hidden gap-10 justify-between;
+}
+
+.badge-text {
+  @apply text-sm font-semibold capitalize;
+}
+
+/* -----------------------------
+   Animations
+----------------------------- */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(5px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fadeIn {
+  animation: fadeIn 0.3s ease-in-out;
 }
