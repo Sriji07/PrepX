@@ -3,9 +3,6 @@
 
 @custom-variant dark (&:is(.dark *));
 
-* {
-  @apply border border-gray-300 outline-none;
-}
 
 body {
   @apply bg-white dark:bg-gray-900 text-gray-900 dark:text-white;

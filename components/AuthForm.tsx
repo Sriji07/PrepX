@@ -1,3 +1,4 @@
+
 "use client"
 
 import { z } from "zod";
@@ -6,23 +7,19 @@ import Image from "next/image";
 import { toast } from "sonner";
 //import { auth } from "@/firebase/client";
 import { useForm } from "react-hook-form";
-import { useRouter } from "next/navigation";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Input } from "@/components/ui/input"
+import { useRouter } from "next/navigation";
 
 import { Button } from "@/components/ui/button"
-import {
-    Form,
-    FormControl,
-    FormDescription,
-    FormField,
-    FormItem,
-    FormLabel,
-    FormMessage,
-} from "@/components/ui/form"
+import { Form } from "@/components/ui/form"
+import FormField from "@/components/FormField";
 
 
 
+
+
+type FormType = "sign-in" | "sign-up";
 const authFormSchema = (type: FormType) => {
     return z.object({
         name: type === "sign-up" ? z.string().min(3) : z.string().optional(),
@@ -32,19 +29,35 @@ const authFormSchema = (type: FormType) => {
 };
 
 const AuthForm = ({ type }: { type: FormType }) => {
+    const router = useRouter();
+
+    const formSchema = authFormSchema(type);
     // 1. Define your form.
     const form = useForm<z.infer<typeof formSchema>>({
         resolver: zodResolver(formSchema),
         defaultValues: {
-            username: "",
+            name: "",
+            email: "",
+            password: ""
         },
     })
 
     // 2. Define a submit handler.
     function onSubmit(values: z.infer<typeof formSchema>) {
-        // Do something with the form values.
-        // ✅ This will be type-safe and validated.
-        console.log(values)
+        try {
+            if (type === "sign-up") {
+                toast.success("Account creation is successful. Please Sign in.");
+                router.push("/sign-in");
+            }
+            else {
+                toast.success("Signed in.");
+                router.push("/");
+            }
+        } catch (error) {
+            console.log(error);
+            toast.error("Something went wrong!");
+
+        }
     }
     const isSignIn = type === "sign-in";
 
@@ -72,7 +85,6 @@ const AuthForm = ({ type }: { type: FormType }) => {
                                 type="text"
                             />
                         )}
-
                         <FormField
                             control={form.control}
                             name="email"
@@ -104,7 +116,7 @@ const AuthForm = ({ type }: { type: FormType }) => {
                     </Link>
                 </p>
             </div>
-        </div>
+        </div >
     )
 }
 
