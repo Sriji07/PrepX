@@ -82,7 +82,7 @@ ul {
    Call view
 ----------------------------- */
 .call-view {
-  @apply flex flex-col sm:flex-row gap-10 items-center justify-between w-full;
+  @apply flex flex-col sm:flex-row gap-10 items-stretch justify-between w-full;
 }
 
 .call-view h3 {
@@ -102,8 +102,9 @@ ul {
 }
 
 .card-content {
-  @apply flex flex-col gap-2 justify-center items-center p-7 bg-gradient-to-b from-gray-800 to-gray-900 rounded-2xl min-h-full;
+  @apply flex flex-col gap-2 justify-center items-center p-7 rounded-2xl min-h-full;
 }
+
 
 /* -----------------------------
    Transcripts
