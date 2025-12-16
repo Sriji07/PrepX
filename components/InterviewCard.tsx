@@ -24,9 +24,18 @@ const InterviewCard = ({ interviewId, userId, role, type, techstack, createdAt }
         feedback?.createdAt || createdAt || Date.now()
     ).format("MMM D, YYYY");
     function getRandomInterviewCover() {
-        // Replace with your own logic or a list of images as needed
-        return "/default-interview-cover.jpg";
+        const ids = [
+            "photo-1518770660439-4636190af455",
+            "photo-1498050108023-c5249f4df085",
+            "photo-1517433456452-f9633a875f6f",
+        ];
+
+        const id = ids[Math.floor(Math.random() * ids.length)];
+
+        return `https://images.unsplash.com/${id}?auto=format&fit=crop&w=1600&q=80`;
     }
+
+
 
     return (
         <div className="relative w-[360px] max-sm:w-full min-h-[24rem] rounded-2xl border border-slate-600 bg-gradient-to-b from-slate-800 to-slate-900 p-6">
