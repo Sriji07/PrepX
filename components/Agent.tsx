@@ -123,45 +123,65 @@ const Agent = ({
         callStatus === CallStatus.ACTIVE || callStatus === CallStatus.FINISHED;
 
     return (
-        <>
-            <div className="call-view">
-                {/* AI Interviewer Card */}
-                <div className="card-interviewer">
-                    <div className="avatar">
-                        <Image
-                            src="/logo.png"
-                            alt="profile-image"
-                            width={65}
-                            height={54}
-                            className="object-cover"
-                        />
-                        {isSpeaking && <span className="animate-speak" />}
+        <div className="min-h-screen w-full flex flex-col items-center justify-between bg-gradient-to-br from-[#0b0f1a] via-[#0f1224] to-black px-6 py-8 text-white">
+
+            {/* Header */}
+            <div className="w-full max-w-5xl flex items-center justify-between mb-6">
+                <div className="flex items-center gap-2">
+                    <Image src="/logo.png" alt="PrepX" width={32} height={32} />
+                    <span className="text-lg font-semibold">PrepX</span>
+                </div>
+                <span className="px-3 py-1 text-xs rounded-full bg-white/10 border border-white/10">
+                    Technical Interview
+                </span>
+            </div>
+
+            {/* Interview Cards */}
+            <div className="w-full max-w-5xl grid grid-cols-1 md:grid-cols-2 gap-6 flex-1 items-center">
+
+                {/* AI Interviewer */}
+                <div className="relative rounded-2xl bg-white/5 border border-white/10 backdrop-blur-xl p-8 flex flex-col items-center justify-center h-[320px]">
+                    <div className="relative">
+                        <div className="w-28 h-28 rounded-full bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center">
+                            <Image
+                                src="/logo.png"
+                                alt="AI Interviewer"
+                                width={56}
+                                height={56}
+                            />
+                        </div>
+
+                        {isSpeaking && (
+                            <span className="absolute inset-0 rounded-full animate-ping bg-indigo-400/40" />
+                        )}
                     </div>
-                    <h3>PrepX</h3>
+
+                    <h3 className="mt-6 text-lg font-semibold">AI Interviewer</h3>
+                    <p className="text-sm text-white/60 mt-1">PrepX</p>
                 </div>
 
-                {/* User Card */}
-                <div className="card-interviewer">
-                    <div className="card-content">
-                        <Image
-                            src="/user-avatar.png"
-                            alt="profile-image"
-                            width={539}
-                            height={539}
-                            className="rounded-full object-cover size-[120px]"
-                        />
-                        <h3>{userName}</h3>
-                    </div>
+                {/* User */}
+                <div className="rounded-2xl bg-white/5 border border-white/10 backdrop-blur-xl p-8 flex flex-col items-center justify-center h-[320px]">
+                    <Image
+                        src="/user-avatar.png"
+                        alt="User"
+                        width={120}
+                        height={120}
+                        className="rounded-full object-cover"
+                    />
+                    <h3 className="mt-6 text-lg font-semibold">{userName}</h3>
+                    <p className="text-sm text-white/60 mt-1">You</p>
                 </div>
             </div>
 
+            {/* Transcript */}
             {latestMessage && (
-                <div className="transcript-border">
-                    <div className="transcript">
+                <div className="w-full max-w-4xl mt-6">
+                    <div className="rounded-xl border border-white/10 bg-black/40 backdrop-blur-md px-6 py-4">
                         <p
                             key={latestMessage}
                             className={cn(
-                                "transition-opacity duration-500 opacity-0",
+                                "text-sm text-white/90 transition-opacity duration-500 opacity-0",
                                 "animate-fadeIn opacity-100"
                             )}
                         >
@@ -171,27 +191,43 @@ const Agent = ({
                 </div>
             )}
 
-            <div className="w-full flex justify-center">
+            {/* Controls */}
+            <div className="mt-8 mb-4 flex justify-center">
                 {callStatus !== CallStatus.ACTIVE ? (
-                    <button className="relative btn-call" onClick={handleCall}>
-                        <span
-                            className={cn(
-                                "absolute animate-ping rounded-full opacity-75",
-                                callStatus !== CallStatus.CONNECTING && "hidden"
-                            )}
-                        />
+                    <button
+                        onClick={handleCall}
+                        disabled={callStatus === CallStatus.CONNECTING}
+                        className={cn(
+                            "relative px-10 py-3 rounded-full font-semibold transition",
+                            callStatus === CallStatus.CONNECTING
+                                ? "bg-indigo-500 cursor-not-allowed opacity-70"
+                                : "bg-indigo-600 hover:bg-indigo-700"
+                        )}
+                    >
+                        {callStatus === CallStatus.CONNECTING && (
+                            <span className="absolute inset-0 rounded-full animate-ping bg-indigo-400/50" />
+                        )}
                         <span className="relative">
-                            {isCallActiveOrFinished ? "Call" : ". . ."}
+                            {callStatus === CallStatus.CONNECTING
+                                ? "Connecting..."
+                                : "Start Interview"}
                         </span>
                     </button>
                 ) : (
-                    <button className="btn-disconnect" onClick={handleDisconnect}>
-                        End
+                    <button
+                        onClick={handleDisconnect}
+                        className="px-10 py-3 rounded-full bg-red-600 hover:bg-red-700 transition font-semibold"
+                    >
+                        End Interview
                     </button>
                 )}
             </div>
-        </>
+
+        </div>
     );
 };
 
 export default Agent;
+
+
+

@@ -7,7 +7,7 @@ export async function POST(req: Request) {
     const response = await axios.post(
         "https://api.vapi.ai/call",
         {
-            workflowId: process.env.NEXT_PUBLIC_VAPI_WORKFLOW_ID, // your workflow UUID
+            workflowId: process.env.NEXT_PUBLIC_VAPI_WORKFLOW_ID,
             variableValues: {
                 username: userName,
                 userid: userId,
