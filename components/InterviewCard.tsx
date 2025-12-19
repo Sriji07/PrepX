@@ -1,10 +1,11 @@
+
 import dayjs from 'dayjs';
 import React from 'react';
 import Image from 'next/image';
 import { cn, getRandomInterviewCover } from "@/lib/utils";
 import { Button } from './ui/button';
 import Link from 'next/link';
-import DisplayTechIcons from './DisplayTechIcons';
+//import DisplayTechIcons from './DisplayTechIcons';
 //import { getFeedbackByInterviewId } from "@/lib/actions/general.action";
 
 
@@ -28,11 +29,14 @@ const InterviewCard = ({ interviewId, userId, role, type, techstack, createdAt }
             "photo-1518770660439-4636190af455",
             "photo-1498050108023-c5249f4df085",
             "photo-1517433456452-f9633a875f6f",
+            "photo-1526378722484-d90c8c9f7b31",
+            "photo-1504384308090-c894fdcc538d",
+            "photo-1519389950473-47ba0277781c",
         ];
 
         const id = ids[Math.floor(Math.random() * ids.length)];
 
-        return `https://images.unsplash.com/${id}?auto=format&fit=crop&w=1600&q=80`;
+        return `https://images.unsplash.com/${id}?ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1600&q=80`;
     }
 
 
@@ -84,7 +88,7 @@ const InterviewCard = ({ interviewId, userId, role, type, techstack, createdAt }
 
             {/* footer: tech icons + CTA */}
             <div className="mt-6 flex items-center justify-between">
-                <DisplayTechIcons techStack={techstack} />
+                {/* <DisplayTechIcons techStack={techstack} /> */}
 
                 {/* Prefer Link with button styles so it renders as a single clickable element */}
                 <Link

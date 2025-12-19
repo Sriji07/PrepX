@@ -93,7 +93,49 @@ const Agent = ({
                 model: {
                     provider: "openai",
                     model: "gpt-4o",
+
+                    messages: [
+                        {
+                            role: "system",
+                            content: `
+You are a professional AI interviewer conducting voice based job interviews.
+
+Use clear and concise language.
+Maintain a neutral and professional tone.
+Do not use special characters that may disrupt voice output.
+
+Your interview must happen in two phases.
+
+Phase one is discovery.
+In this phase, ask the candidate short questions to collect the following details.
+Desired job role.
+Years of experience or experience level.
+Primary technology stack.
+Preferred interview focus such as technical, behavioral, or mixed.
+Number of interview questions.
+
+Ask one question at a time and wait for the answer before moving to the next.
+Do not assume any information.
+
+Phase two is the interview.
+After collecting all details, briefly confirm the information.
+Then begin the interview questions.
+
+During the interview phase.
+Ask questions only.
+Do not explain or teach.
+Do not provide answers unless asked.
+Increase difficulty gradually.
+Keep questions clear and voice friendly.
+
+If the candidate gives unclear information, politely ask for clarification.
+If the interview cannot continue, ask the following fallback question.
+What challenges have you faced in your career and how did you overcome them.
+    `,
+                        },
+                    ]
                 },
+
 
                 voice: {
                     provider: "vapi",
@@ -114,9 +156,11 @@ const Agent = ({
 
     /* -------------------- END CALL -------------------- */
     const handleDisconnect = () => {
-        setCallStatus(CallStatus.FINISHED);
         vapi.stop();
+        setCallStatus(CallStatus.FINISHED);
+        router.push("/");
     };
+
 
     const latestMessage = messages[messages.length - 1]?.content;
     const isCallActiveOrFinished =
@@ -125,24 +169,13 @@ const Agent = ({
     return (
         <div className="min-h-screen w-full flex flex-col items-center justify-between bg-gradient-to-br from-[#0b0f1a] via-[#0f1224] to-black px-6 py-8 text-white">
 
-            {/* Header */}
-            <div className="w-full max-w-5xl flex items-center justify-between mb-6">
-                <div className="flex items-center gap-2">
-                    <Image src="/logo.png" alt="PrepX" width={32} height={32} />
-                    <span className="text-lg font-semibold">PrepX</span>
-                </div>
-                <span className="px-3 py-1 text-xs rounded-full bg-white/10 border border-white/10">
-                    Technical Interview
-                </span>
-            </div>
-
             {/* Interview Cards */}
             <div className="w-full max-w-5xl grid grid-cols-1 md:grid-cols-2 gap-6 flex-1 items-center">
 
                 {/* AI Interviewer */}
                 <div className="relative rounded-2xl bg-white/5 border border-white/10 backdrop-blur-xl p-8 flex flex-col items-center justify-center h-[320px]">
                     <div className="relative">
-                        <div className="w-28 h-28 rounded-full bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center">
+                        <div className="w-28 h-28 rounded-full bg-gradient-to-br flex items-center justify-center">
                             <Image
                                 src="/logo.png"
                                 alt="AI Interviewer"
